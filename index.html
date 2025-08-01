@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The FilciaN Band Official Website</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      background: url('backgrounds/page-background.png') no-repeat center center fixed;
+      background-size: cover;
+      color: white;
+    }
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background-color: #111;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+      z-index: 999;
+    }
+    .logo {
+      height: 40px;
+    }
+    nav {
+      display: flex;
+      gap: 30px;
+    }
+    nav button {
+      background: none;
+      border: none;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    nav button:hover {
+      color: #0af;
+    }
+
+    .banner {
+      margin-top: 80px;
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+    }
+    .banner img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    .banner img.active {
+      opacity: 1;
+    }
+
+    #main-content {
+      padding: 40px;
+    }
+
+    #home-section {
+      max-height: 700px;
+      overflow-y: auto;
+      animation: fadeInSlide 0.5s ease-in-out;
+    }
+
+    @keyframes fadeInSlide {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .news-card {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      backdrop-filter: blur(5px);
+      transition: transform 0.3s ease;
+    }
+
+    .news-card:hover {
+      transform: translateY(-5px);
+    }
+
+    #updates-window {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90%;
+      max-width: 1000px;
+      height: 80vh;
+      background: rgba(20,20,20,0.95);
+      border-radius: 10px;
+      display: none;
+      flex-direction: column;
+      padding: 20px;
+      z-index: 1000;
+      overflow: hidden;
+      backdrop-filter: blur(8px);
+    }
+
+    #updates-window.show {
+      display: flex;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translate(-50%, -60%); }
+      to { opacity: 1; transform: translate(-50%, -50%); }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; transform: translate(-50%, -50%); }
+      to { opacity: 0; transform: translate(-50%, -60%); }
+    }
+
+    #updates-window.hide {
+      animation: fadeOut 0.3s ease-in-out forwards;
+    }
+
+    #updates-window .close-btn {
+      align-self: flex-end;
+      background: #f00;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      cursor: pointer;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .updates-body {
+      display: flex;
+      gap: 20px;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    .sub-images {
+      width: 30%;
+      overflow-y: auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      gap: 10px;
+    }
+
+    .sub-images img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      border-radius: 5px;
+    }
+
+    .sub-images img:hover {
+      border-color: #0af;
+    }
+
+    .preview-area {
+      width: 70%;
+      padding: 10px;
+      background: #222;
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .preview-area img {
+      width: 100%;
+      height: 100%;
+      max-height: 60vh;
+      object-fit: contain;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .image-details {
+      color: #ccc;
+      font-size: 14px;
+      text-align: center;
+    }
+
+    .social-icons {
+      margin: 20px 0;
+      display: flex;
+      gap: 20px;
+      align-items: center;
+    }
+    .social-icons a img {
+      width: 32px;
+      height: 32px;
+      transition: transform 0.3s ease;
+    }
+    .social-icons a:hover img {
+      transform: scale(1.2);
+    }
+
+    footer {
+      background-color: #111;
+      padding: 15px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+    }
+
+    .video-wrapper {
+      display: flex;
+      justify-content: center;
+      margin: 20px auto;
+    }
+
+    .video-wrapper iframe {
+      width: 320px;
+      height: 180px;
+      border-radius: 12px;
+    }
+
+    #about-section {
+      max-height: 500px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo/filcianlogo-dark.png" alt="Logo" class="logo">
+    <nav>
+      <button onclick="showHome()">HOME</button>
+      <button onclick="showUpdates()">GALLERY</button> 
+      <button onclick="showAbout()">ABOUT</button>
+    </nav>
+  </header>
+
+  <div class="banner" id="banner">
+    <img src="banners/banner1.png" class="active" alt="Slide 1">
+    <img src="banners/banner2.png" alt="Slide 2">
+    <img src="banners/banner3.png" alt="Slide 3">
+  </div>
+
+  <main id="main-content">
+    <section id="home-section">
+      <h2>News Updates and Events</h2>
+      <div class="news-card"><h3>Upcoming New Songs&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>August 1, 2025</strong></h3><p>Watchout for our new upcoming song single album, <strong>Kabigang Tunay</strong>.</p></div>
+      <div class="news-card"><h3>Coming Soon</h3><p>FilciaN is planning to make a metal song in 2026.</p></div>
+      <div class="news-card"><h3>News</h3><p>The producer of FilciaN is trying hard to get a professional mix song.</p></div>
+
+      <div class="social-icons">
+        <a href="https://open.spotify.com/artist/1XWS7ZZHJwxD9Z3F06u2ap?si=cqMfbB94Qz6ayC0tNgpz8A&nd=1&dlsi=a0f9cd9fe3dc4bc2" target="_blank"><img src="icons/spotify.png" alt="Spotify"></a>
+        <a href="https://www.facebook.com/p/The-FilciaN-Band-61558452244138/" target="_blank"><img src="icons/facebook.png" alt="Facebook"></a>
+        <a href="https://www.youtube.com/@FilciaN" target="_blank"><img src="icons/youtube.png" alt="YouTube"></a>
+      </div>
+
+      <div class="video-wrapper">
+        <iframe src="https://www.youtube.com/embed/UQTV1P2Zyj4?autoplay=1&mute=1&loop=1&playlist=UQTV1P2Zyj4" title="YouTube Teaser" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    <section id="about-section" style="display:none;">
+      <h2>About the band</h2>
+      <p>FilciaN is a multi-genre experimental music band that was formed in 2013.<br>
+        The band was active for the few months last 2013. One year later the band were became inactive<br>
+        for 11 years that was because of their financial problem. But the band were not losing hope even<br>
+        it's been years inactive they still encouraged and motivated. The good thing is, the time has come <br>
+        for them to arise and now they return in 2024.<br>
+        <br>
+        Active Members:<br>
+        Kablaw Meatspin II - Vocal Lead, Guitarist, Pianist and Drummer<br>
+        Jerome Esteban - Vocal and Bass<br>
+        Jagmin Meatspin - Vocal and Guitarist<br> 
+        Sourmath Meatspin - Drummer<br>
+        <br>
+        Past Members:<br>
+        Kablaw Meatspin I<br>
+        Boy Amplifier</p>
+    </section>
+  </main>
+
+  <div id="updates-window">
+    <button class="close-btn" onclick="closeUpdates()">CLOSE</button>
+    <div class="updates-body">
+      <div class="sub-images" id="subImages"></div>
+      <div class="preview-area">
+        <img id="previewImage" src="images/sub1.png" alt="Preview" />
+        <div class="image-details" id="imageDetails">Click an image to see details.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer><strong>© 2025 FilciaN Band. All rights reserved.</strong></footer>
+
+  <script>
+    const updatesWindow = document.getElementById('updates-window');
+    const subImages = document.getElementById('subImages');
+    const previewImage = document.getElementById('previewImage');
+    const imageDetails = document.getElementById('imageDetails');
+
+    function showHome() {
+      document.getElementById('home-section').style.display = 'block';
+      document.getElementById('about-section').style.display = 'none';
+      updatesWindow.classList.remove('show', 'hide');
+      updatesWindow.style.display = 'none';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showAbout() {
+      document.getElementById('home-section').style.display = 'none';
+      document.getElementById('about-section').style.display = 'block';
+      updatesWindow.classList.remove('show', 'hide');
+      updatesWindow.style.display = 'none';
+    }
+
+    function showUpdates() {
+      updatesWindow.style.display = 'flex';
+      updatesWindow.classList.remove('hide');
+      updatesWindow.classList.add('show');
+    }
+
+    function closeUpdates() {
+      updatesWindow.classList.add('hide');
+      updatesWindow.classList.remove('show');
+      setTimeout(() => {
+        updatesWindow.classList.remove('hide');
+        updatesWindow.style.display = 'none';
+      }, 300);
+    }
+
+    const subImageDetails = {
+      1: 'Watchout upcoming new single album Kaibigang Tunay.',
+      2: 'Look at the Meatspins Eyes.',
+      3: 'Meatspins movie in 2018',
+      4: 'The band were rehearsing at the studio'
+    };
+
+    for (let i = 1; i <= 4; i++) {
+      const img = document.createElement('img');
+      img.src = `images/sub${i}.png`;
+      img.alt = `Sub Image ${i}`;
+      img.addEventListener('click', () => {
+        previewImage.src = img.src;
+        imageDetails.textContent = subImageDetails[i] || `Sub image ${i} description.`;
+      });
+      subImages.appendChild(img);
+    }
+
+    const slides = document.querySelectorAll(".banner img");
+    let currentSlide = 0;
+    function showNextSlide() {
+      slides[currentSlide].classList.remove("active");
+      currentSlide = (currentSlide + 1) % slides.length;
+      slides[currentSlide].classList.add("active");
+    }
+    setInterval(showNextSlide, 5000);
+  </script>
+</body>
+</html>

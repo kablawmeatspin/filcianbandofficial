@@ -1,0 +1,145 @@
+body {
+    margin: 0;
+    font-family: sans-serif;
+    background: url('your-background.jpg') no-repeat center center fixed;
+    background-size: cover;
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: #ffe4b5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    z-index: 1000;
+  }
+  
+  .logo {
+    background: orange;
+    padding: 10px 20px;
+    font-weight: bold;
+  }
+  
+  nav .nav-btn {
+    margin: 0 10px;
+    padding: 10px 20px;
+    background: lightblue;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  
+  .banner {
+    margin-top: 80px;
+    text-align: center;
+    background: rgba(173, 255, 47, 0.7);
+    padding: 60px 20px;
+    font-size: 24px;
+    font-weight: bold;
+    backdrop-filter: blur(10px);
+    text-shadow: 1px 1px #fff;
+  }
+  
+  footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #8b4513;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+  }
+  
+  /* Modal */
+  .modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.6);
+    animation: fadeIn 0.4s ease-in;
+  }
+  
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+  
+  .modal-content {
+    background: white;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 1000px;
+    animation: slideUp 0.3s ease-out;
+  }
+  
+  @keyframes slideUp {
+    from {transform: translateY(50px); opacity: 0;}
+    to {transform: translateY(0); opacity: 1;}
+  }
+  
+  .close {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+  }
+  
+  .updates-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  
+  .text-box {
+    flex: 1 1 40%;
+    background: rgba(255, 192, 203, 0.7);
+    padding: 20px;
+    margin: 10px;
+    backdrop-filter: blur(8px);
+    border: 2px solid #ffb6c1;
+  }
+  
+  .image-preview {
+    flex: 1 1 40%;
+    background: #ffff99;
+    padding: 20px;
+    margin: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-preview img {
+    max-width: 100%;
+    height: auto;
+    border: 4px solid #333;
+  }
+  
+  .sub-images {
+    flex: 1 1 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .sub-img {
+    width: 100px;
+    height: 100px;
+    margin: 10px;
+    cursor: pointer;
+    border: 2px solid #333;
+    transition: transform 0.2s ease;
+  }
+  
+  .sub-img:hover {
+    transform: scale(1.1);
+  }
+  
